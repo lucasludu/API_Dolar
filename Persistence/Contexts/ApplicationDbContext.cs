@@ -1,4 +1,4 @@
-﻿using Application.Interfaces;
+using Application.Interfaces;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
@@ -17,10 +17,10 @@ namespace Persistence.Contexts
             this._dateTime = datetime;
         }
 
-        public DbSet<CotizacionDolar> CotizacionDolars { get; set; }
+        public DbSet<CotizacionDolar> CotizacionesDolar { get; set; }
         public DbSet<CuotaServicio> CuotaServicios { get; set; }
         public DbSet<Servicio> Servicios { get; set; }
-        public DbSet<TipoDolar> TipoDolars { get; set; }
+        public DbSet<TipoDolar> TiposDolar { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

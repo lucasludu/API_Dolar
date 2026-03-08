@@ -1,4 +1,4 @@
-﻿namespace ExternalCommunication.Routes
+namespace ExternalCommunication.Routes
 {
     public static class ApiRoutes
     {

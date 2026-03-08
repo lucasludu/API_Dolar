@@ -1,8 +1,8 @@
-锘縰sing Application.DTOs._cuotaServicio.Request;
-using Application.Feautures._cuotaServicio.Command.CargarCuotasServicioCommands;
-using Application.Feautures._cuotaServicio.Command.DeleteCuotaServicioCommands;
-using Application.Feautures._cuotaServicio.Command.UpdateCuotaServicioCommands;
-using Application.Feautures._cuotaServicio.Queries.GetAllCuotasServicioQueries;
+using Application.DTOs._cuotaServicio.Request;
+using Application.Features._cuotaServicio.Command.CargarCuotasServicioCommands;
+using Application.Features._cuotaServicio.Command.DeleteCuotaServicioCommands;
+using Application.Features._cuotaServicio.Command.UpdateCuotaServicioCommands;
+using Application.Features._cuotaServicio.Queries.GetAllCuotasServicioQueries;
 using Asp.Versioning;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,18 +21,18 @@ namespace WebApi.Controllers.V1
         /// Carga una nueva cuota de servicio.
         /// </summary>
         /// <param name="cuotaServicioDto">Datos de la cuota a registrar.</param>
-        /// <returns>Resultado de la operaci贸n con el ID generado o mensaje de estado.</returns>
+        /// <returns>Resultado de la operaci髇 con el ID generado o mensaje de estado.</returns>
         [HttpPost("CargarCuotasServicio")]
         public async Task<IActionResult> CargarCuotasServicio([FromBody] CuotaServicioRequest cuotaServicioDto)
         {
-            // L贸gica para cargar las cuotas de servicio
+            // L骻ica para cargar las cuotas de servicio
             return Ok(await Mediator.Send(new CargarCuotasServicioCommand(cuotaServicioDto)));
         }
 
         /// <summary>
-        /// Obtiene todas las cuotas de servicio seg煤n filtros opcionales.
+        /// Obtiene todas las cuotas de servicio seg鷑 filtros opcionales.
         /// </summary>
-        /// <param name="parameters">Par谩metros de b煤squeda y paginaci贸n.</param>
+        /// <param name="parameters">Par醡etros de b鷖queda y paginaci髇.</param>
         /// <returns>Listado de cuotas con metadatos asociados.</returns>
         [HttpGet]
         public async Task<IActionResult> GetAll([FromQuery]GetAllCuotasServicioParameters parameters)
@@ -43,8 +43,8 @@ namespace WebApi.Controllers.V1
         /// <summary>
         /// Elimina una cuota de servicio por su identificador.
         /// </summary>
-        /// <param name="id">Identificador 煤nico de la cuota.</param>
-        /// <returns>Resultado de la operaci贸n.</returns>
+        /// <param name="id">Identificador 鷑ico de la cuota.</param>
+        /// <returns>Resultado de la operaci髇.</returns>
         [HttpDelete("delete/{id}")]
         public async Task<IActionResult> DeleteCuotaServicio(int id)
         {
@@ -56,7 +56,7 @@ namespace WebApi.Controllers.V1
         /// </summary>
         /// <param name="id">Identificador de la cuota a modificar.</param>
         /// <param name="cuotaServicioDto">Datos actualizados de la cuota.</param>
-        /// <returns>Resultado de la operaci贸n.</returns>
+        /// <returns>Resultado de la operaci髇.</returns>
         [HttpPatch("update/{id}")]
         public async Task<IActionResult> UpdateCuotaServicio(int id, [FromBody] CuotaServicioRequest cuotaServicioDto)
         {

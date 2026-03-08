@@ -1,4 +1,4 @@
-﻿using Application.Interfaces;
+using Application.Interfaces;
 using Application.Wrappers;
 using Domain.Settings;
 using Identity.Contexts;
@@ -65,7 +65,7 @@ namespace Identity
                         context.HandleResponse();
                         context.Response.StatusCode = 401;
                         context.Response.ContentType = "application/json";
-                        var result = JsonConvert.SerializeObject(new Response<string>("Usted no está autorizado."));
+                        var result = JsonConvert.SerializeObject(new Response<string>("Usted no est� autorizado."));
                         return context.Response.WriteAsync(result);
                     },
                     OnForbidden = context =>

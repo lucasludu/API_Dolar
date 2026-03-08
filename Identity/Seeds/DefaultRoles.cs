@@ -1,4 +1,4 @@
-﻿using Application.Enums;
+using Application.Enums;
 using Identity.Models;
 using Microsoft.AspNetCore.Identity;
 

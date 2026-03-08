@@ -1,4 +1,4 @@
-﻿using Application.Interfaces;
+using Application.Interfaces;
 using ExternalCommunication.Services;
 using Microsoft.Extensions.DependencyInjection;
 

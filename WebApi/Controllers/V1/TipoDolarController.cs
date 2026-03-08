@@ -1,26 +1,26 @@
-锘縰sing Application.DTOs._tipoDolar.Request;
-using Application.Feautures._tipoCambio.Command.InsertNewTipoDolarCommands;
-using Application.Feautures._tipoCambio.Queries.GetAllTipoDolarQueries;
-using Application.Feautures._tipoCambio.Queries.GetTipoCambioByNameQueries;
+using Application.DTOs._tipoDolar.Request;
+using Application.Features._tipoCambio.Command.InsertNewTipoDolarCommands;
+using Application.Features._tipoCambio.Queries.GetAllTipoDolarQueries;
+using Application.Features._tipoCambio.Queries.GetTipoCambioByNameQueries;
 using Asp.Versioning;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers.V1
 {
     /// <summary>
-    /// Controlador para la gesti贸n de tipos de cambio.
+    /// Controlador para la gesti髇 de tipos de cambio.
     /// </summary>
     /// <remarks>
-    /// Permite registrar nuevos tipos de d贸lar, obtener el listado completo y buscar por nombre.
+    /// Permite registrar nuevos tipos de d髄ar, obtener el listado completo y buscar por nombre.
     /// </remarks>
     [ApiVersion("1.0")]
     public class TipoDolarController : BaseApiController
     {
         /// <summary>
-        /// Registra un nuevo tipo de d贸lar en el sistema.
+        /// Registra un nuevo tipo de d髄ar en el sistema.
         /// </summary>
-        /// <param name="request">Datos del tipo de d贸lar a registrar.</param>
-        /// <returns>Resultado de la operaci贸n con confirmaci贸n o mensaje de error.</returns>
+        /// <param name="request">Datos del tipo de d髄ar a registrar.</param>
+        /// <returns>Resultado de la operaci髇 con confirmaci髇 o mensaje de error.</returns>
         [HttpPost]
         public async Task<IActionResult> CreateTipoDolar(TipoDolarRequest request)
         {
@@ -29,7 +29,7 @@ namespace WebApi.Controllers.V1
         }
 
         /// <summary>
-        /// Obtiene todos los tipos de d贸lar registrados.
+        /// Obtiene todos los tipos de d髄ar registrados.
         /// </summary>
         /// <returns>Listado completo de tipos de cambio disponibles.</returns>
         [HttpGet]
@@ -39,9 +39,9 @@ namespace WebApi.Controllers.V1
         }
 
         /// <summary>
-        /// Busca un tipo de d贸lar por su nombre.
+        /// Busca un tipo de d髄ar por su nombre.
         /// </summary>
-        /// <param name="name">Nombre del tipo de d贸lar a buscar (ej. "Oficial", "Blue").</param>
+        /// <param name="name">Nombre del tipo de d髄ar a buscar (ej. "Oficial", "Blue").</param>
         /// <returns>Datos del tipo de cambio encontrado o mensaje de error si no existe.</returns>
         [HttpGet("{name}")]
         public async Task<IActionResult> GetByName(string name)

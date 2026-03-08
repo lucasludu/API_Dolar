@@ -1,4 +1,4 @@
-﻿using ExternalApi.Middleware;
+using ExternalApi.Middleware;
 
 namespace ExternalApi.Extensions
 {

@@ -1,4 +1,4 @@
-Ôªøusing Application.DTOs._cotizaciones.Request;
+using Application.DTOs._cotizaciones.Request;
 using Application.DTOs._feriado.Request;
 using Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -6,18 +6,18 @@ using Microsoft.AspNetCore.Mvc;
 namespace WebApi.Controllers.V1
 {
     /// <summary>
-    /// Proporciona endpoints para obtener informaci√≥n sobre cotizaciones, incluyendo tipos de cambio del d√≥lar, datos de feriados y otras monedas.
-    /// Este controlador act√∫a como una puerta de enlace de la API para acceder a datos financieros desde el servicio subyacente.
+    /// Proporciona endpoints para obtener informaciÛn sobre cotizaciones, incluyendo tipos de cambio del dÛlar, datos de feriados y otras monedas.
+    /// Este controlador act˙a como una puerta de enlace de la API para acceder a datos financieros desde el servicio subyacente.
     /// </summary>
     /// <remarks>
-    /// El controlador expone varios endpoints para recuperar datos de cotizaciones de distintas monedas y per√≠odos de tiempo.
+    /// El controlador expone varios endpoints para recuperar datos de cotizaciones de distintas monedas y perÌodos de tiempo.
     /// Incluye endpoints para:
     /// - Obtener el estado actual de la API.
-    /// - Consultar cotizaciones del d√≥lar para hoy o fechas espec√≠ficas.
+    /// - Consultar cotizaciones del dÛlar para hoy o fechas especÌficas.
     /// - Consultar cotizaciones de otras monedas.
-    /// - Obtener datos de feriados para un a√±o determinado.
+    /// - Obtener datos de feriados para un aÒo determinado.
     /// 
-    /// Cada endpoint valida los par√°metros de entrada y devuelve respuestas HTTP apropiadas, como <see cref="BadRequest"/> para entradas inv√°lidas o <see cref="NotFound"/> cuando no hay datos disponibles.
+    /// Cada endpoint valida los par·metros de entrada y devuelve respuestas HTTP apropiadas, como <see cref="BadRequest"/> para entradas inv·lidas o <see cref="NotFound"/> cuando no hay datos disponibles.
     /// </remarks>
     [Route("api/[controller]")]
     [ApiController]
@@ -42,9 +42,9 @@ namespace WebApi.Controllers.V1
         }
 
         /// <summary>
-        /// Obtiene todas las cotizaciones del d√≥lar disponibles.
+        /// Obtiene todas las cotizaciones del dÛlar disponibles.
         /// </summary>
-        /// <returns>Lista de tipos de d√≥lar y sus valores actuales.</returns>
+        /// <returns>Lista de tipos de dÛlar y sus valores actuales.</returns>
         [HttpGet("dolares")]
         public async Task<IActionResult> GetCotizacionesDolar()
         {
@@ -53,43 +53,43 @@ namespace WebApi.Controllers.V1
         }
 
         /// <summary>
-        /// Obtiene la cotizaci√≥n de un tipo de d√≥lar espec√≠fico en una fecha determinada.
+        /// Obtiene la cotizaciÛn de un tipo de dÛlar especÌfico en una fecha determinada.
         /// </summary>
-        /// <param name="request">Par√°metros que incluyen tipo de d√≥lar y fecha.</param>
-        /// <returns>Cotizaci√≥n correspondiente o error si no se encuentra.</returns>
+        /// <param name="request">Par·metros que incluyen tipo de dÛlar y fecha.</param>
+        /// <returns>CotizaciÛn correspondiente o error si no se encuentra.</returns>
         [HttpGet("dolares/por-fecha")]
         public async Task<IActionResult> GetCotizacionPorFecha([FromQuery]CotizacionesRequest request)
         {
             if (string.IsNullOrWhiteSpace(request.Tipo))
-                return BadRequest("El tipo de d√≥lar es obligatorio.");
+                return BadRequest("El tipo de dÛlar es obligatorio.");
 
             var cotizacion = await _service.GetCotizacionPorTipoYFechaAsync(request.Tipo, request.Fecha);
 
             if (cotizacion == null)
-                return NotFound($"No se encontr√≥ cotizaci√≥n para {request.Tipo} en {request.Fecha:yyyy-MM-dd}");
+                return NotFound($"No se encontrÛ cotizaciÛn para {request.Tipo} en {request.Fecha:yyyy-MM-dd}");
 
             return Ok(cotizacion);
         }
 
         /// <summary>
-        /// Obtiene los feriados nacionales para un a√±o espec√≠fico.
+        /// Obtiene los feriados nacionales para un aÒo especÌfico.
         /// </summary>
-        /// <param name="request">A√±o para el cual se desean consultar los feriados.</param>
-        /// <returns>Lista de feriados o error si el a√±o no es v√°lido.</returns>
+        /// <param name="request">AÒo para el cual se desean consultar los feriados.</param>
+        /// <returns>Lista de feriados o error si el aÒo no es v·lido.</returns>
         [HttpGet("feriados")]
         public async Task<IActionResult> GetFeriados([FromQuery]FeriadoRequest request)
         {
             if (request.Year < 2016 || request.Year > 2025)
-                return BadRequest("El a√±o debe estar entre 2016 y 2025.");
+                return BadRequest("El aÒo debe estar entre 2016 y 2025.");
 
             var feriados = await _service.GetFeriadosAsync(request.Year);
             return Ok(feriados);
         }
 
         /// <summary>
-        /// Obtiene las cotizaciones del d√≥lar correspondientes al d√≠a de hoy.
+        /// Obtiene las cotizaciones del dÛlar correspondientes al dÌa de hoy.
         /// </summary>
-        /// <returns>Lista de tipos de d√≥lar y sus valores actuales para hoy.</returns>
+        /// <returns>Lista de tipos de dÛlar y sus valores actuales para hoy.</returns>
         [HttpGet("dolares/today")]
         public async Task<IActionResult> GetCotizacionesDolarToday()
         {
@@ -98,23 +98,23 @@ namespace WebApi.Controllers.V1
         }
 
         /// <summary>
-        /// Obtiene la cotizaci√≥n de un tipo de d√≥lar espec√≠fico para el d√≠a de hoy.
+        /// Obtiene la cotizaciÛn de un tipo de dÛlar especÌfico para el dÌa de hoy.
         /// </summary>
-        /// <param name="name">Nombre del tipo de d√≥lar (ej. oficial, blue, etc.).</param>
-        /// <returns>Cotizaci√≥n correspondiente o error si no se encuentra.</returns>
+        /// <param name="name">Nombre del tipo de dÛlar (ej. oficial, blue, etc.).</param>
+        /// <returns>CotizaciÛn correspondiente o error si no se encuentra.</returns>
         [HttpGet("dolares/{name}")]
         public async Task<IActionResult> GetCotizacionPorTipo([FromRoute] string name)
         {
             if (string.IsNullOrWhiteSpace(name))
-                return BadRequest("El tipo de d√≥lar es obligatorio.");
+                return BadRequest("El tipo de dÛlar es obligatorio.");
             var result = await _service.GetCotizacionesDolarTodayByTypoAsync(name);
             if (result == null)
-                return NotFound($"No se encontr√≥ cotizaci√≥n para {name} en la fecha de hoy");
+                return NotFound($"No se encontrÛ cotizaciÛn para {name} en la fecha de hoy");
             return Ok(result);
         }
 
         /// <summary>
-        /// Obtiene las cotizaciones de otras monedas distintas al d√≥lar.
+        /// Obtiene las cotizaciones de otras monedas distintas al dÛlar.
         /// </summary>
         /// <returns>Lista de monedas extranjeras y sus valores actuales.</returns>
         [HttpGet("otras-monedas")]
@@ -125,18 +125,18 @@ namespace WebApi.Controllers.V1
         }
 
         /// <summary>
-        /// Obtiene la cotizaci√≥n de una moneda espec√≠fica distinta al d√≥lar.
+        /// Obtiene la cotizaciÛn de una moneda especÌfica distinta al dÛlar.
         /// </summary>
         /// <param name="name">Nombre de la moneda (ej. euro, real, etc.).</param>
-        /// <returns>Cotizaci√≥n correspondiente o error si no se encuentra.</returns>
+        /// <returns>CotizaciÛn correspondiente o error si no se encuentra.</returns>
         [HttpGet("otras-monedas/{name}")]
         public async Task<IActionResult> GetOtrasMonedasCotizacionPorTipo([FromRoute] string name)
         {
             if (string.IsNullOrWhiteSpace(name))
-                return BadRequest("El tipo de d√≥lar es obligatorio.");
+                return BadRequest("El tipo de dÛlar es obligatorio.");
             var result = await _service.GetOtrasMonedasCotizacionesByTypoAsync(name);
             if (result == null)
-                return NotFound($"No se encontr√≥ cotizaci√≥n para {name} en la fecha de hoy");
+                return NotFound($"No se encontrÛ cotizaciÛn para {name} en la fecha de hoy");
             return Ok(result);
         }
 

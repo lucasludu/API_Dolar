@@ -1,14 +1,14 @@
-ï»¿using Application.DTOs._servicio.Request;
-using Application.Feautures._servicio.Command.CreateServicioCommands;
-using Application.Feautures._servicio.Queries.GetAllServiciosQueries;
-using Application.Feautures._servicio.Queries.GetServicioByNameQueries;
+using Application.DTOs._servicio.Request;
+using Application.Features._servicio.Command.CreateServicioCommands;
+using Application.Features._servicio.Queries.GetAllServiciosQueries;
+using Application.Features._servicio.Queries.GetServicioByNameQueries;
 using Asp.Versioning;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers.V1
 {
     /// <summary>
-    /// Controlador para la gestiÃ³n de servicios.
+    /// Controlador para la gestión de servicios.
     /// </summary>
     /// <remarks>
     /// Permite crear nuevos servicios, obtener el listado completo y buscar por nombre.
@@ -20,7 +20,7 @@ namespace WebApi.Controllers.V1
         /// Crea un nuevo servicio en el sistema.
         /// </summary>
         /// <param name="request">Datos del servicio a registrar.</param>
-        /// <returns>Resultado de la operaciÃ³n con el ID generado o mensaje de estado.</returns>
+        /// <returns>Resultado de la operación con el ID generado o mensaje de estado.</returns>
         [HttpPost("CrearServicio")]
         public async Task<IActionResult> CrearServicio([FromQuery] ServicioRequest request)
         {
