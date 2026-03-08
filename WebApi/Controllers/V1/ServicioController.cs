@@ -24,7 +24,7 @@ namespace WebApi.Controllers.V1
         [HttpPost("CrearServicio")]
         public async Task<IActionResult> CrearServicio([FromQuery] ServicioRequest request)
         {
-            return Ok(await Mediator.Send(new CreateServicioCommand(request)));
+            return OkResponse(await Mediator.Send(new CreateServicioCommand(request)));
         }
 
         /// <summary>
@@ -34,7 +34,7 @@ namespace WebApi.Controllers.V1
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            return Ok(await Mediator.Send(new GetAllServiciosQuery()));
+            return OkResponse(await Mediator.Send(new GetAllServiciosQuery()));
         }
 
         /// <summary>
@@ -45,7 +45,7 @@ namespace WebApi.Controllers.V1
         [HttpGet("{name}")]
         public async Task<IActionResult> GetByName(string name)
         {
-            return Ok(await Mediator.Send(new GetServicioByNameQuery(name)));
+            return OkResponse(await Mediator.Send(new GetServicioByNameQuery(name)));
         }
     }
 }

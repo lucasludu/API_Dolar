@@ -24,7 +24,7 @@ namespace WebApi.Controllers.V1
         [HttpPost]
         public async Task<IActionResult> CreateTipoDolar(TipoDolarRequest request)
         {
-            return Ok(await Mediator.Send(new InsertNewTipoDolarCommand(request)));
+            return OkResponse(await Mediator.Send(new InsertNewTipoDolarCommand(request)));
 
         }
 
@@ -35,7 +35,7 @@ namespace WebApi.Controllers.V1
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            return Ok(await Mediator.Send(new GetAllTipoDolarQuery()));
+            return OkResponse(await Mediator.Send(new GetAllTipoDolarQuery()));
         }
 
         /// <summary>
@@ -46,7 +46,7 @@ namespace WebApi.Controllers.V1
         [HttpGet("{name}")]
         public async Task<IActionResult> GetByName(string name)
         {
-            return Ok(await Mediator.Send(new GetTipoCambioByNameQuery(name)));
+            return OkResponse(await Mediator.Send(new GetTipoCambioByNameQuery(name)));
         }
     }
 }
