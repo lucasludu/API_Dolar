@@ -1,0 +1,37 @@
+[2025-10-21 21:26:26 WRN] No instantiatable types implementing `IEntityTypeConfiguration` were found while while scanning assembly 'Persistence, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null'.
+[2025-10-21 21:26:26 WRN] No store type was specified for the decimal property 'Compra' on entity type 'CotizacionDolar'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-21 21:26:26 WRN] No store type was specified for the decimal property 'Venta' on entity type 'CotizacionDolar'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-21 21:26:26 WRN] No store type was specified for the decimal property 'MontoARS' on entity type 'CuotaServicio'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-21 21:26:26 WRN] No store type was specified for the decimal property 'MontoUSD' on entity type 'CuotaServicio'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2025-10-21 21:26:27 INF] Iniciando consulta de cuotas de servicio con parámetros: {"PageNumber":1,"PageSize":10,"$type":"GetAllCuotasServicioParameters"}
+[2025-10-21 21:26:27 WRN] The query uses a row limiting operator ('Skip'/'Take') without an 'OrderBy' operator. This may lead to unpredictable results. If the 'Distinct' operator is used after 'OrderBy', then make sure to use the 'OrderBy' operator after 'Distinct' as the ordering would otherwise get erased.
+[2025-10-21 21:26:28 INF] Consulta finalizada. Total registros: 7
+[2025-10-21 21:27:04 INF] Se encontraron 1 servicios
+[2025-10-21 21:27:52 INF] Iniciando consulta de cuotas de servicio con parámetros: {"PageNumber":1,"PageSize":10,"$type":"GetAllCuotasServicioParameters"}
+[2025-10-21 21:27:52 INF] Consulta finalizada. Total registros: 7
+[2025-10-21 21:27:54 INF] Se encontraron 1 servicios
+[2025-10-21 21:27:54 INF] Lista de tipos de dólar obtenida exitosamente.
+[2025-10-21 21:28:07 INF] Se encontraron 1 servicios
+[2025-10-21 21:28:07 INF] Lista de tipos de dólar obtenida exitosamente.
+[2025-10-21 21:28:07 INF] Se encontraron 1 servicios
+[2025-10-21 21:28:07 INF] Lista de tipos de dólar obtenida exitosamente.
+[2025-10-21 21:28:23 INF] Se encontraron 1 servicios
+[2025-10-21 21:43:44 INF] Se encontraron 1 servicios
+[2025-10-21 21:43:46 INF] Iniciando consulta de cuotas de servicio con parámetros: {"PageNumber":1,"PageSize":10,"$type":"GetAllCuotasServicioParameters"}
+[2025-10-21 21:43:46 INF] Consulta finalizada. Total registros: 7
+[2025-10-21 21:43:47 INF] Se encontraron 1 servicios
+[2025-10-21 21:44:03 INF] Lista de tipos de dólar obtenida exitosamente.
+[2025-10-21 21:46:31 INF] Iniciando consulta de cuotas de servicio con parámetros: {"PageNumber":1,"PageSize":10,"$type":"GetAllCuotasServicioParameters"}
+[2025-10-21 21:46:31 INF] Consulta finalizada. Total registros: 7
+[2025-10-21 21:46:32 INF] Se encontraron 1 servicios
+[2025-10-21 21:46:32 INF] Lista de tipos de dólar obtenida exitosamente.
+[2025-10-21 21:46:48 INF] Se encontraron 1 servicios
+[2025-10-21 21:46:48 INF] Lista de tipos de dólar obtenida exitosamente.
+[2025-10-21 21:46:48 INF] Se encontraron 1 servicios
+[2025-10-21 21:46:48 INF] Lista de tipos de dólar obtenida exitosamente.
+[2025-10-21 21:48:18 INF] Iniciando consulta de cuotas de servicio con parámetros: {"PageNumber":1,"PageSize":10,"$type":"GetAllCuotasServicioParameters"}
+[2025-10-21 21:48:18 INF] Consulta finalizada. Total registros: 7
+[2025-10-21 21:48:35 INF] Se encontraron 1 servicios
+[2025-10-21 21:48:35 INF] Lista de tipos de dólar obtenida exitosamente.
+[2025-10-21 21:48:35 INF] Se encontraron 1 servicios
+[2025-10-21 21:48:35 INF] Lista de tipos de dólar obtenida exitosamente.

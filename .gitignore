@@ -1,0 +1,18 @@
+# Visual Studio
+.vs/
+[Bb]in/
+[Oo]bj/
+*.user
+
+# Ocultar configuraciones locales
+appsettings.Development.json
+appsettings.Local.json
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Archivos de log
+*.log
+
+# Ocultar secretos de mac
+.DS_Store
