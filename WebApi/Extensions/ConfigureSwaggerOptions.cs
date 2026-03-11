@@ -17,8 +17,15 @@ namespace WebApi.Extensions
             {
                 options.SwaggerDoc(desc.GroupName, new OpenApiInfo
                 {
-                    Title = $"API_Pagos {desc.GroupName.ToUpperInvariant()}",
-                    Version = desc.ApiVersion.ToString()
+                    Title = "API_Dolar",
+                    Description = "Sistema de Gestión de Pagos y Cotización de Dólar",
+                    Version = desc.ApiVersion.ToString(),
+                    Contact = new OpenApiContact
+                    {
+                        Name = "Lucas Ludu",
+                        Email = "lucas@gmail.com",
+                        Url = new Uri("https://github.com/LucasLudu")
+                    }
                 });
             }
         }

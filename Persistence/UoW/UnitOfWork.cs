@@ -8,35 +8,25 @@ namespace Persistence.UoW
     {
         private readonly ApplicationDbContext _context;
 
-        public IRepositoryAsync<CuotaServicio> CuotaServicioRepository { get; }
-        public IRepositoryAsync<Servicio> ServicioRepository { get; }
-        public IRepositoryAsync<CotizacionDolar> CotizacionDolarRepository { get; }
-        public IRepositoryAsync<TipoDolar> TipoDolarRepository { get; }
-
-        public UnitOfWork (
-                ApplicationDbContext context, 
-                IRepositoryAsync<CuotaServicio> cuotaServicioRepository, 
-                IRepositoryAsync<Servicio> servicioRepository, 
-                IRepositoryAsync<CotizacionDolar> cotizacionDolarRepository, 
-                IRepositoryAsync<TipoDolar> tipoDolarRepository
-            )
+        public UnitOfWork(ApplicationDbContext context)
         {
             _context = context;
-            CuotaServicioRepository = cuotaServicioRepository;
-            ServicioRepository = servicioRepository;
-            CotizacionDolarRepository = cotizacionDolarRepository;
-            TipoDolarRepository = tipoDolarRepository;
         }
 
-
-        public async Task<int> CommitAsync()
+        public async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
-            return await _context.SaveChangesAsync();
+            return await _context.SaveChangesAsync(cancellationToken);
+        }
+
+        public Task Rollback()
+        {
+            return Task.CompletedTask; // Todo: Manejo mas complejo si es necesario
         }
 
         public void Dispose()
         {
             _context.Dispose();
+            GC.SuppressFinalize(this);
         }
     }
 }

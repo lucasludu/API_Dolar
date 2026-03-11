@@ -1,13 +1,15 @@
-using Application.DTOs._cuotaServicio.Request;
+﻿using Application.DTOs._cuotaServicio.Request;
 using Application.Interfaces;
 using Application.Wrappers;
 using AutoMapper;
 using MediatR;
 using Microsoft.Extensions.Logging;
+using Domain.Entities;
+using Application.Exceptions;
 
 namespace Application.Features._cuotaServicio.Command.UpdateCuotaServicioCommands
 {
-    public class UpdateCuotaServicioCommand : IRequest<Response<bool>>
+    public class UpdateCuotaServicioCommand : IRequest<bool>
     {
         public int Id { get; set; }
         public CuotaServicioRequest CuotaServicioDto { get; set; }
@@ -18,31 +20,44 @@ namespace Application.Features._cuotaServicio.Command.UpdateCuotaServicioCommand
         }
     }
 
-    public class UpdateCuotaServicioCommandHandler : IRequestHandler<UpdateCuotaServicioCommand, Response<bool>>
+    public class UpdateCuotaServicioCommandHandler : IRequestHandler<UpdateCuotaServicioCommand, bool>
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IRepositoryAsync<CuotaServicio> _repository;
         private readonly IMapper _mapper;
         private readonly ILogger<UpdateCuotaServicioCommand> _logger;
 
-        public UpdateCuotaServicioCommandHandler(IUnitOfWork unitOfWork, IMapper mapper, ILogger<UpdateCuotaServicioCommand> logger)
+        public UpdateCuotaServicioCommandHandler(IUnitOfWork unitOfWork, IRepositoryAsync<CuotaServicio> repository, IMapper mapper, ILogger<UpdateCuotaServicioCommand> logger)
         {
             _unitOfWork = unitOfWork;
+            _repository = repository;
             _mapper = mapper;
             _logger = logger;
         }
 
-        public async Task<Response<bool>> Handle(UpdateCuotaServicioCommand request, CancellationToken cancellationToken)
+        public async Task<bool> Handle(UpdateCuotaServicioCommand request, CancellationToken cancellationToken)
         {
-            var cuotaServicio = await _unitOfWork.CuotaServicioRepository.GetByIdAsync(request.Id);
+            var cuotaServicio = await _repository.GetByIdAsync(request.Id);
             if (cuotaServicio == null)
             {
-                _logger.LogWarning("Servicio con ID {ServicioId} no encontrado", request.CuotaServicioDto.ServicioId);
-                return new Response<bool>(false, "Cuota de servicio no encontrada.");
+                _logger.LogWarning("Cuota de servicio con ID {Id} no encontrada", request.Id);
+                throw new ApiException("Cuota de servicio no encontrada.");
             }
-            _mapper.Map(request.CuotaServicioDto, cuotaServicio);
-            await _unitOfWork.CuotaServicioRepository.UpdateAsync(cuotaServicio);
-            _logger.LogInformation("La cuota del servicio {ServicioId} fue modificada con �xito.", request.CuotaServicioDto.ServicioId);
-            return new Response<bool>(true, "Cuota de servicio actualizada correctamente.");
+
+            cuotaServicio.Update(
+                request.CuotaServicioDto.NumeroCuota,
+                request.CuotaServicioDto.FechaPago,
+                request.CuotaServicioDto.MontoARS,
+                request.CuotaServicioDto.MontoUSD,
+                request.CuotaServicioDto.ServicioId,
+                request.CuotaServicioDto.CotizacionDolarId
+            );
+
+            await _repository.UpdateAsync(cuotaServicio);
+            await _unitOfWork.SaveChangesAsync(cancellationToken);
+
+            _logger.LogInformation("La cuota del servicio {ServicioId} fue modificada con éxito.", request.CuotaServicioDto.ServicioId);
+            return true;
         }
     }
 }

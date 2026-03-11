@@ -1,4 +1,9 @@
 using Asp.Versioning;
+using Microsoft.OpenApi.Models;
+using System.Reflection;
+using Microsoft.Extensions.DependencyInjection;
+using WebApi.HealthChecks;
+using Persistence.Contexts;
 
 namespace WebApi.Extensions
 {
@@ -11,7 +16,30 @@ namespace WebApi.Extensions
                 config.DefaultApiVersion = new ApiVersion(1, 0);
                 config.AssumeDefaultVersionWhenUnspecified = true;
                 config.ReportApiVersions = true;
+            }).AddApiExplorer(options =>
+            {
+                options.GroupNameFormat = "'v'VVV";
+                options.SubstituteApiVersionInUrl = true;
             });
+        }
+
+        public static void AddSwaggerDocumentation(this IServiceCollection services)
+        {
+            services.AddSwaggerGen(c =>
+            {
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
+            });
+            
+            services.ConfigureOptions<ConfigureSwaggerOptions>();
+        }
+
+        public static void AddHealthChecksExtension(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddHealthChecks()
+                .AddDbContextCheck<ApplicationDbContext>("Database")
+                .AddCheck<ArgentinaDatosHealthCheck>("ArgentinaDatos");
         }
     }
 }

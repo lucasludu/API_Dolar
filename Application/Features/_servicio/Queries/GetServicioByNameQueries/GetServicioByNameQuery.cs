@@ -1,7 +1,6 @@
 using Application.DTOs._servicio.Response;
 using Application.Interfaces;
 using Application.Specification._servicio;
-using Application.Wrappers;
 using AutoMapper;
 using Domain.Entities;
 using MediatR;
@@ -9,7 +8,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Application.Features._servicio.Queries.GetServicioByNameQueries
 {
-    public class GetServicioByNameQuery : IRequest<Response<ServicioResponse>>
+    public class GetServicioByNameQuery : IRequest<ServicioResponse>
     {
         public string Name { get; set; }
 
@@ -19,7 +18,7 @@ namespace Application.Features._servicio.Queries.GetServicioByNameQueries
         }
     }
 
-    public class GetServicioByNameQueryHandler : IRequestHandler<GetServicioByNameQuery, Response<ServicioResponse>>
+    public class GetServicioByNameQueryHandler : IRequestHandler<GetServicioByNameQuery, ServicioResponse>
     {
         private readonly IRepositoryAsync<Servicio> _servicioRepositoryAsync;
         private readonly IMapper _mapper;
@@ -32,8 +31,7 @@ namespace Application.Features._servicio.Queries.GetServicioByNameQueries
             _logger = logger;
         }
 
-
-        public async Task<Response<ServicioResponse>> Handle(GetServicioByNameQuery request, CancellationToken cancellationToken)
+        public async Task<ServicioResponse> Handle(GetServicioByNameQuery request, CancellationToken cancellationToken)
         {
             var servicioSpec = new ServicioContainNameSpec(request.Name);
             var servicio = await _servicioRepositoryAsync.FirstOrDefaultAsync(servicioSpec, cancellationToken);
@@ -41,13 +39,11 @@ namespace Application.Features._servicio.Queries.GetServicioByNameQueries
             if (servicio != null)
             {
                 _logger.LogInformation("Servicio encontrado: {ServiceName}", request.Name);
-                return Response<ServicioResponse>.SuccessResponse(_mapper.Map<ServicioResponse>(servicio));
+                return _mapper.Map<ServicioResponse>(servicio);
             }
-            else
-            {
-                _logger.LogError("No se encontro el nombre del serivicio: {ServiceName}", request.Name);
-                return Response<ServicioResponse>.FailResponse("No se encontro el nombre del serivicio");
-            }
+            
+            _logger.LogWarning("No se encontro el nombre del servicio: {ServiceName}", request.Name);
+            throw new Application.Exceptions.ApiException("No se encontro el nombre del servicio");
         }
     }
 }

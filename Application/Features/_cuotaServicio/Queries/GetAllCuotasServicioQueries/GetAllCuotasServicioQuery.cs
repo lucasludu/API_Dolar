@@ -1,49 +1,47 @@
-using Application.DTOs._cuotaServicio.Response;
+ï»¿using Application.DTOs._cuotaServicio.Response;
 using Application.Interfaces;
-using Application.Specification._cuotaServicio;
 using Application.Wrappers;
 using AutoMapper;
 using MediatR;
-using Microsoft.Extensions.Logging;
-using Serilog;
+using Domain.Entities;
 
 namespace Application.Features._cuotaServicio.Queries.GetAllCuotasServicioQueries
 {
-    public class GetAllCuotasServicioQuery : IRequest<PagedResponse<List<CuotaServicioResponse>>>
+    public class GetAllCuotasServicioQuery : IRequest<PagedResponse<IEnumerable<CuotaServicioResponse>>>
     {
-        public GetAllCuotasServicioParameters Parameters { get; set; }
+        public int PageNumber { get; set; }
+        public int PageSize { get; set; }
+
+        public GetAllCuotasServicioQuery()
+        {
+            PageNumber = 1;
+            PageSize = 10;
+        }
 
         public GetAllCuotasServicioQuery(GetAllCuotasServicioParameters parameters)
         {
-            Parameters = parameters;
+            PageNumber = parameters.PageNumber == 0 ? 1 : parameters.PageNumber;
+            PageSize = parameters.PageSize == 0 ? 10 : parameters.PageSize;
         }
     }
 
-    public class GetAllCuotasServicioQueryHandler : IRequestHandler<GetAllCuotasServicioQuery, PagedResponse<List<CuotaServicioResponse>>>
+    public class GetAllCuotasServicioQueryHandler : IRequestHandler<GetAllCuotasServicioQuery, PagedResponse<IEnumerable<CuotaServicioResponse>>>
     {
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly ILogger<GetAllCuotasServicioQuery> _logger;
+        private readonly IRepositoryAsync<CuotaServicio> _repository;
         private readonly IMapper _mapper;
 
-        public GetAllCuotasServicioQueryHandler(IUnitOfWork unitOfWork, IMapper mapper, ILogger<GetAllCuotasServicioQuery> logger)
+        public GetAllCuotasServicioQueryHandler(IRepositoryAsync<CuotaServicio> repository, IMapper mapper)
         {
-            _unitOfWork = unitOfWork;
+            _repository = repository;
             _mapper = mapper;
-            _logger = logger;
         }
 
-        public async Task<PagedResponse<List<CuotaServicioResponse>>> Handle(GetAllCuotasServicioQuery request, CancellationToken cancellationToken)
+        public async Task<PagedResponse<IEnumerable<CuotaServicioResponse>>> Handle(GetAllCuotasServicioQuery request, CancellationToken cancellationToken)
         {
-            _logger.LogInformation("Iniciando consulta de cuotas de servicio con parámetros: {@Parameters}", request.Parameters);
-
-            var cuotaServicioSpec = new CuotaServicioPagedSpecification(request.Parameters);
-            var cuotasServicio = await _unitOfWork.CuotaServicioRepository.ListAsync(cuotaServicioSpec);
-            var total = await _unitOfWork.CuotaServicioRepository.CountAsync(cuotaServicioSpec);
-            var data = _mapper.Map<List<CuotaServicioResponse>>(cuotasServicio);
-
-            _logger.LogInformation("Consulta finalizada. Total registros: {Total}", total);
-
-            return new PagedResponse<List<CuotaServicioResponse>>(data, request.Parameters.PageNumber, request.Parameters.PageSize, total);
+            var pagedCuotas = await _repository.GetPagedResponseAsync(request.PageNumber, request.PageSize);
+            var totalRecords = await _repository.CountAsync(cancellationToken);
+            var cuotasViewModel = _mapper.Map<IEnumerable<CuotaServicioResponse>>(pagedCuotas);
+            return new PagedResponse<IEnumerable<CuotaServicioResponse>>(cuotasViewModel, request.PageNumber, request.PageSize, totalRecords);
         }
     }
 }

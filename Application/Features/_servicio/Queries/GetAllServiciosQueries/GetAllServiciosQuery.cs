@@ -1,43 +1,50 @@
-using Application.DTOs._servicio.Response;
+﻿using Application.DTOs._servicio.Response;
 using Application.Interfaces;
 using Application.Wrappers;
 using AutoMapper;
-using Domain.Entities;
 using MediatR;
-using Microsoft.Extensions.Logging;
+using Domain.Entities;
 
 namespace Application.Features._servicio.Queries.GetAllServiciosQueries
 {
-    public class GetAllServiciosQuery : IRequest<Response<List<ServicioResponse>>>
+    public class GetAllServiciosQuery : IRequest<PagedResponse<IEnumerable<ServicioResponse>>>, ICacheable
     {
-    }
-    public class GetAllServiciosQueryHandler : IRequestHandler<GetAllServiciosQuery, Response<List<ServicioResponse>>>
-    {
-        private readonly IRepositoryAsync<Servicio> _servicioRepositoryAsync;
-        private readonly IMapper _mapper;
-        private readonly ILogger<GetAllServiciosQuery> _logger;
+        public int PageNumber { get; set; }
+        public int PageSize { get; set; }
 
-        public GetAllServiciosQueryHandler(IRepositoryAsync<Servicio> servicioRepositoryAsync, IMapper mapper, ILogger<GetAllServiciosQuery> logger)
+        public string CacheKey => $"GetAllServicios_{PageNumber}_{PageSize}";
+        public TimeSpan? Expiration => TimeSpan.FromMinutes(10);
+
+        public GetAllServiciosQuery()
         {
-            _servicioRepositoryAsync = servicioRepositoryAsync;
-            _mapper = mapper;
-            _logger = logger;
+            PageNumber = 1;
+            PageSize = 10;
         }
 
-        public async Task<Response<List<ServicioResponse>>> Handle(GetAllServiciosQuery request, CancellationToken cancellationToken)
+        public GetAllServiciosQuery(int pageNumber, int pageSize)
         {
-            var listaServicios = await _servicioRepositoryAsync.ListAsync(cancellationToken);
+            PageNumber = pageNumber == 0 ? 1 : pageNumber;
+            PageSize = pageSize == 0 ? 10 : pageSize;
+        }
+    }
 
-            if (listaServicios.Any())
-            {
-                _logger.LogInformation("Se encontraron {Count} servicios", listaServicios.Count);
-                return Response<List<ServicioResponse>>.SuccessResponse(_mapper.Map<List<ServicioResponse>>(listaServicios));
-            }
-            else
-            {
-                _logger.LogWarning("No se encontraron servicios");
-                return Response<List<ServicioResponse>>.SuccessResponse(null, "No hay servicios");
-            }
+    public class GetAllServiciosQueryHandler : IRequestHandler<GetAllServiciosQuery, PagedResponse<IEnumerable<ServicioResponse>>>
+    {
+        private readonly IRepositoryAsync<Servicio> _repository;
+        private readonly IMapper _mapper;
+
+        public GetAllServiciosQueryHandler(IRepositoryAsync<Servicio> repository, IMapper mapper)
+        {
+            _repository = repository;
+            _mapper = mapper;
+        }
+
+        public async Task<PagedResponse<IEnumerable<ServicioResponse>>> Handle(GetAllServiciosQuery request, CancellationToken cancellationToken)
+        {
+            var pagedServicios = await _repository.GetPagedResponseAsync(request.PageNumber, request.PageSize);
+            var totalRecords = await _repository.CountAsync(cancellationToken);
+            var serviciosViewModel = _mapper.Map<IEnumerable<ServicioResponse>>(pagedServicios);
+            return new PagedResponse<IEnumerable<ServicioResponse>>(serviciosViewModel, request.PageNumber, request.PageSize, totalRecords);
         }
     }
 }

@@ -4,6 +4,7 @@ using Persistence;
 using Serilog;
 using Shared;
 using WebApi.Extensions;
+using WebApi.Handlers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,10 +14,13 @@ builder.Services.AddPersistenceInfrastructure(builder.Configuration);
 builder.Services.AddSharedInfrastructure(builder.Configuration);
 builder.Services.AddApiVersioningExtension();
 builder.Services.AddExternalServices();
+builder.Services.AddHealthChecksExtension(builder.Configuration);
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+builder.Services.AddProblemDetails();
 builder.Services.AddSwaggerDocumentation();
 
 Log.Logger = new LoggerConfiguration()
@@ -41,7 +45,9 @@ app.UseAuthentication();
 
 app.UseAuthorization();
 
-app.UseErrorHandlingMiddleware();
+app.UseExceptionHandler();
+
+app.MapHealthChecks("/health");
 
 app.MapControllers();
 

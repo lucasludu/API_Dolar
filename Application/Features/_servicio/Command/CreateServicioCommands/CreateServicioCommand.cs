@@ -10,7 +10,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Application.Features._servicio.Command.CreateServicioCommands
 {
-    public class CreateServicioCommand : IRequest<Response<ServicioResponse>>
+    public class CreateServicioCommand : IRequest<ServicioResponse>
     {
         public ServicioRequest Request { get; set; }
 
@@ -20,24 +20,26 @@ namespace Application.Features._servicio.Command.CreateServicioCommands
         }
     }
 
-    public class CreateServicioCommandHandler : IRequestHandler<CreateServicioCommand, Response<ServicioResponse>>
+    public class CreateServicioCommandHandler : IRequestHandler<CreateServicioCommand, ServicioResponse>
     {
         private readonly IRepositoryAsync<Servicio> _servicioRepositoryAsync;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         private readonly ILogger<CreateServicioCommand> _logger;
 
         public CreateServicioCommandHandler(
                 IRepositoryAsync<Servicio> servicioRepositoryAsync,
-                IMapper mapper
-,
+                IUnitOfWork unitOfWork,
+                IMapper mapper,
                 ILogger<CreateServicioCommand> logger)
         {
             _servicioRepositoryAsync = servicioRepositoryAsync;
+            _unitOfWork = unitOfWork;
             _mapper = mapper;
             _logger = logger;
         }
 
-        public async Task<Response<ServicioResponse>> Handle(CreateServicioCommand request, CancellationToken cancellationToken)
+        public async Task<ServicioResponse> Handle(CreateServicioCommand request, CancellationToken cancellationToken)
         {
             var servicioSpec = new ServicioByNameSpec(request.Request.Nombre);
             var servicio = await _servicioRepositoryAsync.FirstOrDefaultAsync(servicioSpec);
@@ -45,21 +47,28 @@ namespace Application.Features._servicio.Command.CreateServicioCommands
             if (servicio != null)
             {
                 _logger.LogWarning("El servicio ya existe");
-                return Response<ServicioResponse>.FailResponse("El servicio ya existe.");
+                throw new Application.Exceptions.ApiException("El servicio ya existe.");
             }
 
-            var nuevoServicio = _mapper.Map<Servicio>(request.Request);
+            var nuevoServicio = new Servicio(
+                request.Request.Nombre,
+                request.Request.FechaInicio,
+                request.Request.CantidadCuotas,
+                request.Request.Activo
+            );
+            
             var createdServicio = await _servicioRepositoryAsync.AddAsync(nuevoServicio);
+            await _unitOfWork.SaveChangesAsync(cancellationToken);
 
             if (createdServicio != null)
             {
                 _logger.LogInformation("Servicio creado exitosamente.");
-                return Response<ServicioResponse>.SuccessResponse(_mapper.Map<ServicioResponse>(createdServicio), "Servicio creado exitosamente.");
+                return _mapper.Map<ServicioResponse>(createdServicio);
             }
             else
             {
                 _logger.LogError("No se pudo crear el servicio.");
-                return Response<ServicioResponse>.FailResponse("No se pudo crear el servicio.");
+                throw new Application.Exceptions.ApiException("No se pudo crear el servicio.");
             }
         }
     }

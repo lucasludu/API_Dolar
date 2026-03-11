@@ -10,11 +10,13 @@ namespace Application
     {
         public static void AddApplicationLayer(this IServiceCollection services)
         {
-            services.AddAutoMapper(Assembly.GetExecutingAssembly()); // Registra automaticamente el mappeo
+            services.AddAutoMapper(Assembly.GetExecutingAssembly()); 
             services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
             services.AddMediatR(Assembly.GetExecutingAssembly());
+            services.AddMemoryCache();
 
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(CachingBehavior<,>));
         }
     }
 }
