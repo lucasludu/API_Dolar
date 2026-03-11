@@ -1,9 +1,7 @@
 ﻿using Application.DTOs._servicio.Response;
 using Application.Interfaces;
 using Application.Wrappers;
-using AutoMapper;
 using MediatR;
-using Domain.Entities;
 
 namespace Application.Features._servicio.Queries.GetAllServiciosQueries
 {
@@ -25,26 +23,6 @@ namespace Application.Features._servicio.Queries.GetAllServiciosQueries
         {
             PageNumber = pageNumber == 0 ? 1 : pageNumber;
             PageSize = pageSize == 0 ? 10 : pageSize;
-        }
-    }
-
-    public class GetAllServiciosQueryHandler : IRequestHandler<GetAllServiciosQuery, PagedResponse<IEnumerable<ServicioResponse>>>
-    {
-        private readonly IRepositoryAsync<Servicio> _repository;
-        private readonly IMapper _mapper;
-
-        public GetAllServiciosQueryHandler(IRepositoryAsync<Servicio> repository, IMapper mapper)
-        {
-            _repository = repository;
-            _mapper = mapper;
-        }
-
-        public async Task<PagedResponse<IEnumerable<ServicioResponse>>> Handle(GetAllServiciosQuery request, CancellationToken cancellationToken)
-        {
-            var pagedServicios = await _repository.GetPagedResponseAsync(request.PageNumber, request.PageSize);
-            var totalRecords = await _repository.CountAsync(cancellationToken);
-            var serviciosViewModel = _mapper.Map<IEnumerable<ServicioResponse>>(pagedServicios);
-            return new PagedResponse<IEnumerable<ServicioResponse>>(serviciosViewModel, request.PageNumber, request.PageSize, totalRecords);
         }
     }
 }

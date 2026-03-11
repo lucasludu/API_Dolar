@@ -26,8 +26,10 @@ namespace Application.UnitTests.Features._servicio.Command.CreateServicioCommand
             _unitOfWorkMock = new Mock<IUnitOfWork>();
             _mapperMock = new Mock<IMapper>();
             _loggerMock = new Mock<ILogger<CreateServicioCommand>>();
+
+            _unitOfWorkMock.Setup(u => u.RepositoryAsync<Servicio>()).Returns(_repositoryMock.Object);
+
             _handler = new CreateServicioCommandHandler(
-                _repositoryMock.Object, 
                 _unitOfWorkMock.Object, 
                 _mapperMock.Object, 
                 _loggerMock.Object);

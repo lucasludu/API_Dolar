@@ -1,9 +1,7 @@
 using Asp.Versioning;
-using Microsoft.OpenApi.Models;
-using System.Reflection;
-using Microsoft.Extensions.DependencyInjection;
-using WebApi.HealthChecks;
 using Persistence.Contexts;
+using System.Reflection;
+using WebApi.HealthChecks;
 
 namespace WebApi.Extensions
 {

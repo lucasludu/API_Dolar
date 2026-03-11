@@ -1,4 +1,6 @@
 using Application.Behaviours;
+using Application.Interfaces;
+using Application.Services;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,6 +19,8 @@ namespace Application
 
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(CachingBehavior<,>));
+            
+            services.AddScoped<ICotizacionDolarManager, CotizacionDolarManager>();
         }
     }
 }
