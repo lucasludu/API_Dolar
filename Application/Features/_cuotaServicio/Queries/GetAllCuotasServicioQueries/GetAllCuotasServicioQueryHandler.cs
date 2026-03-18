@@ -1,9 +1,11 @@
-﻿using Application.DTOs._cuotaServicio.Response;
+using Application.DTOs._cuotaServicio.Response;
 using Application.Interfaces;
 using Application.Wrappers;
+using Application.Specification._cuotaServicio;
 using AutoMapper;
 using Domain.Entities;
 using MediatR;
+using Ardalis.Specification;
 
 namespace Application.Features._cuotaServicio.Queries.GetAllCuotasServicioQueries
 {
@@ -20,8 +22,19 @@ namespace Application.Features._cuotaServicio.Queries.GetAllCuotasServicioQuerie
 
         public async Task<PagedResponse<IEnumerable<CuotaServicioResponse>>> Handle(GetAllCuotasServicioQuery request, CancellationToken cancellationToken)
         {
-            var pagedCuotas = await _unitOfWork.RepositoryAsync<CuotaServicio>().GetPagedResponseAsync(request.PageNumber, request.PageSize);
-            var totalRecords = await _unitOfWork.RepositoryAsync<CuotaServicio>().CountAsync(cancellationToken);
+            var parameters = new GetAllCuotasServicioParameters
+            {
+                PageNumber = request.PageNumber,
+                PageSize = request.PageSize,
+                ServicioId = request.ServicioId
+            };
+
+            var pagedCuotas = await _unitOfWork.RepositoryAsync<CuotaServicio>().ListAsync(new CuotaServicioPagedSpecification(parameters), cancellationToken);
+
+            int totalRecords = (request.ServicioId.HasValue)
+                ? await _unitOfWork.RepositoryAsync<CuotaServicio>().CountAsync(new CuotaServicioPagedSpecification(parameters), cancellationToken)
+                : await _unitOfWork.RepositoryAsync<CuotaServicio>().CountAsync(cancellationToken); 
+
             var cuotasViewModel = _mapper.Map<IEnumerable<CuotaServicioResponse>>(pagedCuotas);
             return new PagedResponse<IEnumerable<CuotaServicioResponse>>(cuotasViewModel, request.PageNumber, request.PageSize, totalRecords);
         }

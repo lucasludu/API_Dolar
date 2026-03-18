@@ -1,7 +1,6 @@
 ﻿using Application.DTOs._tipoDolar.Response;
 using Application.Interfaces;
 using AutoMapper;
-using Domain.Entities;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
@@ -9,20 +8,20 @@ namespace Application.Features._tipoCambio.Queries.GetAllTipoDolarQueries
 {
     public class GetAllTipoDolarQueryHandler : IRequestHandler<GetAllTipoDolarQuery, IEnumerable<TipoDolarResponse>>
     {
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
         private readonly ILogger<GetAllTipoDolarQuery> _logger;
+        private readonly IArgentidaDatosService _argentidaDatosService;
+        private readonly IMapper _mapper;
 
-        public GetAllTipoDolarQueryHandler(IUnitOfWork unitOfWork, IMapper mapper, ILogger<GetAllTipoDolarQuery> logger)
+        public GetAllTipoDolarQueryHandler(ILogger<GetAllTipoDolarQuery> logger, IArgentidaDatosService argentidaDatosService, IMapper mapper)
         {
-            _unitOfWork = unitOfWork;
-            _mapper = mapper;
             _logger = logger;
+            _argentidaDatosService = argentidaDatosService;
+            _mapper = mapper;
         }
 
         public async Task<IEnumerable<TipoDolarResponse>> Handle(GetAllTipoDolarQuery request, CancellationToken cancellationToken)
         {
-            var listTipoDolar = await _unitOfWork.RepositoryAsync<TipoDolar>().ListAsync(cancellationToken);
+            var listTipoDolar = await _argentidaDatosService.GetCotizacionesDolarTodayAsync();
 
             if (listTipoDolar.Any())
             {

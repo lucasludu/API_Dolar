@@ -4,5 +4,6 @@ namespace Application.Features._cuotaServicio.Queries.GetAllCuotasServicioQuerie
 {
     public class GetAllCuotasServicioParameters : RequestParameters
     {
+        public int? ServicioId { get; set; }
     }
 }

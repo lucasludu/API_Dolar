@@ -1,5 +1,3 @@
-using Application.DTOs._tipoDolar.Request;
-using Application.Features._tipoCambio.Command.InsertNewTipoDolarCommands;
 using Application.Features._tipoCambio.Queries.GetAllTipoDolarQueries;
 using Application.Features._tipoCambio.Queries.GetTipoCambioByNameQueries;
 using Asp.Versioning;
@@ -11,23 +9,11 @@ namespace WebApi.Controllers.V1
     /// Controlador para la gestión de tipos de cambio.
     /// </summary>
     /// <remarks>
-    /// Permite registrar nuevos tipos de dólar, obtener el listado completo y buscar por nombre.
+    /// Permite registrar obtener el listado completo y buscar por nombre.
     /// </remarks>
     [ApiVersion("1.0")]
     public class TipoDolarController : BaseApiController
     {
-        /// <summary>
-        /// Registra un nuevo tipo de dólar en el sistema.
-        /// </summary>
-        /// <param name="request">Datos del tipo de dólar a registrar.</param>
-        /// <returns>Resultado de la operación con confirmación o mensaje de error.</returns>
-        [HttpPost]
-        public async Task<IActionResult> CreateTipoDolar(TipoDolarRequest request)
-        {
-            return OkResponse(await Mediator.Send(new InsertNewTipoDolarCommand(request)));
-
-        }
-
         /// <summary>
         /// Obtiene todos los tipos de dólar registrados.
         /// </summary>
@@ -35,7 +21,7 @@ namespace WebApi.Controllers.V1
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            return OkResponse(await Mediator.Send(new GetAllTipoDolarQuery()));
+            return Ok(await Mediator.Send(new GetAllTipoDolarQuery()));
         }
 
         /// <summary>
@@ -46,7 +32,7 @@ namespace WebApi.Controllers.V1
         [HttpGet("{name}")]
         public async Task<IActionResult> GetByName(string name)
         {
-            return OkResponse(await Mediator.Send(new GetTipoCambioByNameQuery(name)));
+            return Ok(await Mediator.Send(new GetTipoCambioByNameQuery(name)));
         }
     }
 }

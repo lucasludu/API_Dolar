@@ -2,6 +2,7 @@
 using Application.Exceptions;
 using Application.Interfaces;
 using Application.Specification._servicio;
+using Application.Wrappers;
 using AutoMapper;
 using Domain.Entities;
 using MediatR;
@@ -9,7 +10,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Application.Features._servicio.Command.CreateServicioCommands
 {
-    public class CreateServicioCommandHandler : IRequestHandler<CreateServicioCommand, ServicioResponse>
+    public class CreateServicioCommandHandler : IRequestHandler<CreateServicioCommand, Response<ServicioResponse>>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
@@ -25,7 +26,7 @@ namespace Application.Features._servicio.Command.CreateServicioCommands
             _logger = logger;
         }
 
-        public async Task<ServicioResponse> Handle(CreateServicioCommand request, CancellationToken cancellationToken)
+        public async Task<Response<ServicioResponse>> Handle(CreateServicioCommand request, CancellationToken cancellationToken)
         {
             var servicioSpec = new ServicioByNameSpec(request.Request.Nombre);
             var servicio = await _unitOfWork.RepositoryAsync<Servicio>().FirstOrDefaultAsync(servicioSpec);
@@ -49,12 +50,17 @@ namespace Application.Features._servicio.Command.CreateServicioCommands
             if (createdServicio != null)
             {
                 _logger.LogInformation("Servicio creado exitosamente.");
-                return _mapper.Map<ServicioResponse>(createdServicio);
+                var mapped = _mapper.Map<ServicioResponse>(createdServicio);
+                return new Response<ServicioResponse>(mapped);
             }
             else
             {
                 _logger.LogError("No se pudo crear el servicio.");
-                throw new ApiException("No se pudo crear el servicio.");
+                return new Response<ServicioResponse>
+                {
+                    Succeeded = false,
+                    Message = "No se pudo crear el servicio."
+                };
             }
         }
     }

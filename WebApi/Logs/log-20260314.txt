@@ -1,0 +1,66 @@
+[2026-03-14 18:48:54 INF] Fetching Cotizaciones Dolar Today...
+[2026-03-14 18:48:56 INF] Cotizaciones Dolar Today fetched successfully. Count: 7
+[2026-03-14 18:48:56 INF] Lista de tipos de dólar obtenida exitosamente.
+[2026-03-14 18:49:25 WRN] No instantiatable types implementing `IEntityTypeConfiguration` were found while while scanning assembly 'Persistence, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null'.
+[2026-03-14 18:49:25 WRN] No store type was specified for the decimal property 'Compra' on entity type 'CotizacionDolar'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2026-03-14 18:49:25 WRN] No store type was specified for the decimal property 'Venta' on entity type 'CotizacionDolar'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2026-03-14 18:49:25 WRN] No store type was specified for the decimal property 'MontoARS' on entity type 'CuotaServicio'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2026-03-14 18:49:25 WRN] No store type was specified for the decimal property 'MontoUSD' on entity type 'CuotaServicio'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2026-03-14 18:49:26 WRN] The query uses a row limiting operator ('Skip'/'Take') without an 'OrderBy' operator. This may lead to unpredictable results. If the 'Distinct' operator is used after 'OrderBy', then make sure to use the 'OrderBy' operator after 'Distinct' as the ordering would otherwise get erased.
+[2026-03-14 18:49:26 WRN] The query uses a row limiting operator ('Skip'/'Take') without an 'OrderBy' operator. This may lead to unpredictable results. If the 'Distinct' operator is used after 'OrderBy', then make sure to use the 'OrderBy' operator after 'Distinct' as the ordering would otherwise get erased.
+[2026-03-14 18:57:31 INF] Fetching Cotizaciones Dolar Today...
+[2026-03-14 18:57:31 INF] Cotizaciones Dolar Today fetched successfully. Count: 7
+[2026-03-14 18:57:31 INF] Lista de tipos de dólar obtenida exitosamente.
+[2026-03-14 19:08:59 INF] Fetching Cotizaciones Dolar Today...
+[2026-03-14 19:08:59 INF] Cotizaciones Dolar Today fetched successfully. Count: 7
+[2026-03-14 19:08:59 INF] Lista de tipos de dólar obtenida exitosamente.
+[2026-03-14 19:17:09 INF] Fetching Cotizaciones Dolar Today...
+[2026-03-14 19:17:10 INF] Cotizaciones Dolar Today fetched successfully. Count: 7
+[2026-03-14 19:17:10 INF] Lista de tipos de dólar obtenida exitosamente.
+[2026-03-14 19:18:04 INF] Servicio with id 2 updated successfully.
+[2026-03-14 19:18:12 INF] Fetching Cotizaciones Dolar Today...
+[2026-03-14 19:18:12 INF] Cotizaciones Dolar Today fetched successfully. Count: 7
+[2026-03-14 19:18:12 INF] Lista de tipos de dólar obtenida exitosamente.
+[2026-03-14 19:18:49 INF] Fetching Cotizaciones Dolar Today...
+[2026-03-14 19:18:49 INF] Cotizaciones Dolar Today fetched successfully. Count: 7
+[2026-03-14 19:18:49 INF] Lista de tipos de dólar obtenida exitosamente.
+[2026-03-14 19:19:43 INF] Servicio with id 2 updated successfully.
+[2026-03-14 19:41:07 ERR] An unhandled exception has occurred while executing the request.
+Swashbuckle.AspNetCore.SwaggerGen.SwaggerGeneratorException: Ambiguous HTTP method for action - WebApi.Controllers.V1.ServicioController.UpdateCuotaServicio (WebApi). Actions require an explicit HttpMethod binding for Swagger/OpenAPI 3.0
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.PrepareGenerateOperation(IGrouping`2 group)
+   at System.Linq.Enumerable.IteratorSelectIterator`2.MoveNext()
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GenerateOperationsAsync(OpenApiDocument document, IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GeneratePathsAsync(OpenApiDocument document, IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository, Func`4 operationsGenerator)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GeneratePathsAsync(OpenApiDocument document, IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GetSwaggerAsync(String documentName, String host, String basePath)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+[2026-03-14 19:42:48 INF] Fetching Cotizaciones Dolar Today...
+[2026-03-14 19:42:48 INF] Cotizaciones Dolar Today fetched successfully. Count: 7
+[2026-03-14 19:42:48 INF] Lista de tipos de dólar obtenida exitosamente.
+[2026-03-14 19:42:52 WRN] No instantiatable types implementing `IEntityTypeConfiguration` were found while while scanning assembly 'Persistence, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null'.
+[2026-03-14 19:42:52 WRN] No store type was specified for the decimal property 'Compra' on entity type 'CotizacionDolar'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2026-03-14 19:42:52 WRN] No store type was specified for the decimal property 'Venta' on entity type 'CotizacionDolar'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2026-03-14 19:42:52 WRN] No store type was specified for the decimal property 'MontoARS' on entity type 'CuotaServicio'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2026-03-14 19:42:52 WRN] No store type was specified for the decimal property 'MontoUSD' on entity type 'CuotaServicio'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2026-03-14 19:42:53 WRN] The query uses a row limiting operator ('Skip'/'Take') without an 'OrderBy' operator. This may lead to unpredictable results. If the 'Distinct' operator is used after 'OrderBy', then make sure to use the 'OrderBy' operator after 'Distinct' as the ordering would otherwise get erased.
+[2026-03-14 19:42:53 WRN] The query uses a row limiting operator ('Skip'/'Take') without an 'OrderBy' operator. This may lead to unpredictable results. If the 'Distinct' operator is used after 'OrderBy', then make sure to use the 'OrderBy' operator after 'Distinct' as the ordering would otherwise get erased.
+[2026-03-14 19:43:02 INF] Servicio with id 2 deleted successfully
+[2026-03-14 19:43:59 INF] Fetching Cotizaciones Dolar Today...
+[2026-03-14 19:43:59 INF] Cotizaciones Dolar Today fetched successfully. Count: 7
+[2026-03-14 19:43:59 INF] Lista de tipos de dólar obtenida exitosamente.
+[2026-03-14 19:44:47 WRN] Servicio with id 2 not found
+[2026-03-14 19:54:51 INF] Fetching Cotizaciones Dolar Today...
+[2026-03-14 19:54:51 INF] Cotizaciones Dolar Today fetched successfully. Count: 7
+[2026-03-14 19:54:51 INF] Lista de tipos de dólar obtenida exitosamente.
+[2026-03-14 19:54:54 WRN] No instantiatable types implementing `IEntityTypeConfiguration` were found while while scanning assembly 'Persistence, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null'.
+[2026-03-14 19:54:54 WRN] No store type was specified for the decimal property 'Compra' on entity type 'CotizacionDolar'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2026-03-14 19:54:54 WRN] No store type was specified for the decimal property 'Venta' on entity type 'CotizacionDolar'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2026-03-14 19:54:54 WRN] No store type was specified for the decimal property 'MontoARS' on entity type 'CuotaServicio'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2026-03-14 19:54:54 WRN] No store type was specified for the decimal property 'MontoUSD' on entity type 'CuotaServicio'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2026-03-14 19:54:55 WRN] The query uses a row limiting operator ('Skip'/'Take') without an 'OrderBy' operator. This may lead to unpredictable results. If the 'Distinct' operator is used after 'OrderBy', then make sure to use the 'OrderBy' operator after 'Distinct' as the ordering would otherwise get erased.
+[2026-03-14 19:54:55 WRN] The query uses a row limiting operator ('Skip'/'Take') without an 'OrderBy' operator. This may lead to unpredictable results. If the 'Distinct' operator is used after 'OrderBy', then make sure to use the 'OrderBy' operator after 'Distinct' as the ordering would otherwise get erased.
+[2026-03-14 19:55:13 INF] Servicio with id 3 deleted successfully
+[2026-03-14 19:55:46 INF] Fetching Cotizaciones Dolar Today...
+[2026-03-14 19:55:46 INF] Cotizaciones Dolar Today fetched successfully. Count: 7
+[2026-03-14 19:55:46 INF] Lista de tipos de dólar obtenida exitosamente.

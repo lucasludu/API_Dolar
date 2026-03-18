@@ -26,7 +26,7 @@ namespace WebApi.Controllers.V1
         public async Task<IActionResult> CargarCuotasServicio([FromBody] CuotaServicioRequest cuotaServicioDto)
         {
             // Lógica para cargar las cuotas de servicio
-            return OkResponse(await Mediator.Send(new CargarCuotasServicioCommand(cuotaServicioDto)));
+            return Ok(await Mediator.Send(new CargarCuotasServicioCommand(cuotaServicioDto)));
         }
 
         /// <summary>
@@ -37,7 +37,7 @@ namespace WebApi.Controllers.V1
         [HttpGet]
         public async Task<IActionResult> GetAll([FromQuery]GetAllCuotasServicioParameters parameters)
         {
-            return OkResponse(await Mediator.Send(new GetAllCuotasServicioQuery(parameters)));
+            return Ok(await Mediator.Send(new GetAllCuotasServicioQuery(parameters)));
         }
 
         /// <summary>
@@ -48,7 +48,7 @@ namespace WebApi.Controllers.V1
         [HttpDelete("delete/{id}")]
         public async Task<IActionResult> DeleteCuotaServicio(int id)
         {
-            return OkResponse(await Mediator.Send(new DeleteCuotaServicioCommand(id)));
+            return Ok(await Mediator.Send(new DeleteCuotaServicioCommand(id)));
         }
 
         /// <summary>
@@ -60,7 +60,7 @@ namespace WebApi.Controllers.V1
         [HttpPatch("update/{id}")]
         public async Task<IActionResult> UpdateCuotaServicio(int id, [FromBody] CuotaServicioRequest cuotaServicioDto)
         {
-            return OkResponse(await Mediator.Send(new UpdateCuotaServicioCommand(id, cuotaServicioDto)));
+            return Ok(await Mediator.Send(new UpdateCuotaServicioCommand(id, cuotaServicioDto)));
         }
 
     }

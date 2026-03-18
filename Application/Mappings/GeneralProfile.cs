@@ -1,9 +1,7 @@
 using Application.DTOs._cotizaciones.Response;
-using Application.DTOs._cuotaServicio.Request;
 using Application.DTOs._cuotaServicio.Response;
 using Application.DTOs._servicio.Request;
 using Application.DTOs._servicio.Response;
-using Application.DTOs._tipoDolar.Request;
 using Application.DTOs._tipoDolar.Response;
 using AutoMapper;
 using Domain.Entities;
@@ -16,9 +14,11 @@ namespace Application.Mappings
         {
             // SERVICIO
             CreateMap<Servicio, ServicioResponse>();
+            CreateMap<Servicio, ServicioRequest>().ReverseMap();
 
             // TIPO DE DOLAR
             CreateMap<TipoDolar, TipoDolarResponse>();
+            CreateMap<CotizacionesResponse, TipoDolarResponse>();
 
             // COTIZACION DOLAR
             CreateMap<CotizacionDolar, CotizacionesResponse>()

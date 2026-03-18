@@ -8,6 +8,11 @@ namespace Application.Specification._cuotaServicio
     {
         public CuotaServicioPagedSpecification(GetAllCuotasServicioParameters parameters)
         {
+            if (parameters.ServicioId.HasValue)
+            {
+                Query.Where(cs => cs.ServicioId == parameters.ServicioId.Value);
+            }
+
             Query.Skip((parameters.PageNumber - 1) * parameters.PageSize)
                 .Take(parameters.PageSize)
                 .Include(a => a.Servicio)
