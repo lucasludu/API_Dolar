@@ -61,7 +61,7 @@ namespace Application.UnitTests.Features._servicio.Command.CreateServicioCommand
 
             // Assert
             result.Should().NotBeNull();
-            result.Id.Should().Be(1);
+            result.Should().Be(1);
             _repositoryMock.Verify(x => x.AddAsync(It.IsAny<Servicio>(), It.IsAny<CancellationToken>()), Times.Once);
             _unitOfWorkMock.Verify(x => x.SaveChangesAsync(It.IsAny<CancellationToken>()), Times.Once);
         }

@@ -20,7 +20,6 @@ namespace Persistence.Contexts
         public DbSet<CotizacionDolar> CotizacionesDolar { get; set; }
         public DbSet<CuotaServicio> CuotaServicios { get; set; }
         public DbSet<Servicio> Servicios { get; set; }
-        public DbSet<TipoDolar> TiposDolar { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

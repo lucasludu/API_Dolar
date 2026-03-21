@@ -8,7 +8,7 @@ namespace Application.Specification._cotizacionDolar
         public CotizacionDolarSpecification(string tipo, DateTime fecha)
         {
             Query
-                .Where(a => a.TipoDolar.Nombre.ToLower() == tipo.ToLower() && a.Fecha == fecha);
+                .Where(a => a.TipoDolar.ToLower() == tipo.ToLower() && a.Fecha == fecha);
         }
     }
 }

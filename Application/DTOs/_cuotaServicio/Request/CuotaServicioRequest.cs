@@ -7,6 +7,7 @@ namespace Application.DTOs._cuotaServicio.Request
         public decimal MontoARS { get; set; }
         public decimal MontoUSD { get; set; }
         public int ServicioId { get; set; }
-        public int CotizacionDolarId { get; set; }
+        public string TipoDolar { get; set; }
+        public string DeterminaCuotaPor { get; set; }
     }
 }

@@ -1,8 +1,7 @@
-using System.Collections;
 using Application.Interfaces;
-using Domain.Entities;
 using Persistence.Contexts;
 using Persistence.Repository;
+using System.Collections;
 
 namespace Persistence.UoW
 {
@@ -30,7 +29,7 @@ namespace Persistence.UoW
                 _repositories.Add(type, repositoryInstance);
             }
 
-            return (IRepositoryAsync<T>)_repositories[type];
+            return (IRepositoryAsync<T>)_repositories[type]!;
         }
 
         public IReadRepositoryAsync<T> ReadRepositoryAsync<T>() where T : class
@@ -47,7 +46,7 @@ namespace Persistence.UoW
                 _repositories.Add(type, repositoryInstance);
             }
 
-            return (IReadRepositoryAsync<T>)_repositories[type];
+            return (IReadRepositoryAsync<T>)_repositories[type]!;
         }
 
         public async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)

@@ -19,13 +19,6 @@ namespace Persistence
             #region Repositories
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             #endregion
-
-            #region Caching
-            services.AddStackExchangeRedisCache(ops =>
-            {
-                ops.Configuration = configuration.GetValue<string>("Caching:RedisConnection");
-            });
-            #endregion
         }
     }
 }

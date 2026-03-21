@@ -1,12 +1,9 @@
-using Domain.Entities;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
+using Application.DTOs._cotizaciones.Response;
 
 namespace Application.Interfaces
 {
     public interface ICotizacionDolarManager
     {
-        Task<CotizacionDolar> ObtenerYGuardarCotizacionAsync(TipoDolar tipoCotizacion, DateTime fechaPago, CancellationToken cancellationToken);
+        Task<CotizacionesResponse> ObtenerYGuardarCotizacionAsync(string tipoDolar, DateTime fechaPago, CancellationToken cancellationToken);
     }
 }

@@ -11,7 +11,6 @@ namespace Application.Specification._cuotaServicio
                 .Where(cs => cs.ServicioId == servicioId && cs.NumeroCuota == numeroCuota)
                 .Include(cs => cs.Servicio)
                 .Include(cs => cs.CotizacionDolar)
-                .Include(cs => cs.CotizacionDolar.TipoDolar)
                 .AsNoTracking();
         }
     }

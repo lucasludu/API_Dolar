@@ -22,7 +22,7 @@ namespace Application.Features._servicio.Command.DeleteServicioCommands
             //var servicio = await _unitOfWork.ReadRepositoryAsync<Servicio>().GetByIdAsync(request.id);
 
             var servicioSpec = new GetServicioByIdSpec(request.id);
-            var servicio = await _unitOfWork.RepositoryAsync<Servicio>().GetBySpecAsync(servicioSpec);
+            var servicio = await _unitOfWork.RepositoryAsync<Servicio>().FirstOrDefaultAsync(servicioSpec);
 
             if (servicio == null)
             {

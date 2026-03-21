@@ -16,8 +16,7 @@ namespace Application.Specification._cuotaServicio
             Query.Skip((parameters.PageNumber - 1) * parameters.PageSize)
                 .Take(parameters.PageSize)
                 .Include(a => a.Servicio)
-                .Include(a => a.CotizacionDolar)
-                .Include(a => a.CotizacionDolar.TipoDolar);
+                .Include(a => a.CotizacionDolar);
         }
     }
 }
